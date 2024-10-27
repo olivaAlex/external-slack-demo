@@ -1,4 +1,4 @@
-package com.example.slack.demo.service;
+package com.example.slack.demo.service.slack;
 
 import com.example.slack.demo.configuration.slack.SlackMessage;
 import lombok.extern.log4j.Log4j2;

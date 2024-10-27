@@ -1,4 +1,4 @@
-package com.example.slack.demo.service;
+package com.example.slack.demo.service.slack;
 
 import com.example.slack.demo.configuration.slack.SlackMessage;
 import com.slack.api.bolt.App;

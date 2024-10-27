@@ -1,9 +1,9 @@
 package com.example.slack.demo.configuration.slack;
 
 import com.example.slack.demo.configuration.GeneralSettings;
-import com.example.slack.demo.service.SlackApp;
-import com.example.slack.demo.service.SlackAppApi;
-import com.example.slack.demo.service.SlackAppStub;
+import com.example.slack.demo.service.slack.SlackApp;
+import com.example.slack.demo.service.slack.SlackAppApi;
+import com.example.slack.demo.service.slack.SlackAppStub;
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.AppConfig;
 import com.slack.api.bolt.socket_mode.SocketModeApp;
