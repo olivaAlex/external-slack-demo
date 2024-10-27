@@ -1,0 +1,7 @@
+application:
+  settings:
+    integration:
+      slack:
+        bot-token:
+        app-token:
+        enabled: false
