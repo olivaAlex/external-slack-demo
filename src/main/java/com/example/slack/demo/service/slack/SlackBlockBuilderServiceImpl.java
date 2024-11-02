@@ -2,9 +2,11 @@ package com.example.slack.demo.service.slack;
 
 
 import com.example.slack.demo.configuration.slack.SlackMessage;
+import com.slack.api.model.block.ActionsBlock;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
 import com.slack.api.model.block.composition.BlockCompositions;
+import com.slack.api.model.block.element.BlockElements;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -21,19 +23,33 @@ public class SlackBlockBuilderServiceImpl implements SlackBuilderService {
 
     private final SlackApp slackApp;
 
+    public static final String IGNORE_BUTTON = "ignore-button";
+    public static final String DANGER = "danger";
+
     public ResponseEntity<Object> sendHelloMessageToBot() throws Exception {
         List<SlackMessage> slackMessages = new ArrayList<>();
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(SectionBlock.builder()
                            .text(BlockCompositions.markdownText("Hello everyone! \uD83D\uDC4B"))
                            .build());
+        this.addIgnoreButton(blocks);
         slackMessages.add(SlackMessage.builder()
                                   .blocks(blocks)
                                   .userEmail("aoliva@griddynamics.com")
                                   .build());
         slackApp.sendMessage(slackMessages);
-        //TODO IMPLEMENT HANDLE AND ADD IGNORE BUTTON
+        return ResponseEntity.ok("The message was sent to the bot channel!");
+    }
 
-        return ResponseEntity.ok("The message wsa sent to the bot channel!");
+    private void addIgnoreButton(List<LayoutBlock> blocks) {
+        blocks.add(createButtonSection("Ignore", IGNORE_BUTTON, DANGER));
+    }
+
+    private LayoutBlock createButtonSection(String text, String actionId, String style) {
+        return ActionsBlock.builder()
+                .elements(List.of(BlockElements.button(b -> b.text(BlockCompositions.plainText(pt -> pt.text(text)))
+                        .actionId(actionId)
+                        .style(style))))
+                .build();
     }
 }
