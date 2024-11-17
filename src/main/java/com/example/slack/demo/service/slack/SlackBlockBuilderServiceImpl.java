@@ -26,11 +26,25 @@ public class SlackBlockBuilderServiceImpl implements SlackBuilderService {
     public static final String IGNORE_BUTTON = "ignore-button";
     public static final String DANGER = "danger";
 
-    public ResponseEntity<Object> sendHelloMessageToBot() throws Exception {
+    public ResponseEntity<Object> sendHelloMessageToBotWithoutButton() throws Exception {
         List<SlackMessage> slackMessages = new ArrayList<>();
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(SectionBlock.builder()
                            .text(BlockCompositions.markdownText("Hello everyone! \uD83D\uDC4B"))
+                           .build());
+        slackMessages.add(SlackMessage.builder()
+                                  .blocks(blocks)
+                                  .userEmail("aoliva@griddynamics.com")
+                                  .build());
+        slackApp.sendMessage(slackMessages);
+        return ResponseEntity.ok("The message was sent to the bot channel!");
+    }
+
+    public ResponseEntity<Object> sendHelloMessageToBotWithButton() throws Exception {
+        List<SlackMessage> slackMessages = new ArrayList<>();
+        List<LayoutBlock> blocks = new ArrayList<>();
+        blocks.add(SectionBlock.builder()
+                           .text(BlockCompositions.markdownText("Hello everyone! \uD83D\uDC4B Now you can ignore this message!"))
                            .build());
         this.addIgnoreButton(blocks);
         slackMessages.add(SlackMessage.builder()

@@ -5,5 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface SlackBuilderService {
 
-    ResponseEntity<Object> sendHelloMessageToBot() throws Exception;
+    ResponseEntity<Object> sendHelloMessageToBotWithoutButton() throws Exception;
+
+    ResponseEntity<Object> sendHelloMessageToBotWithButton() throws Exception;
 }

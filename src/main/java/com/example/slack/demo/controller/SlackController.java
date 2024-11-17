@@ -19,9 +19,16 @@ public class SlackController {
 
 
     @Tag(name = "Slack")
-    @Operation(summary = "Sends a welcome message to the bot!")
+    @Operation(summary = "Sends a welcome message to the bot without any button!")
     @PostMapping(produces = MediaType.TEXT_PLAIN_VALUE, path = "/welcome")
     public ResponseEntity<Object> sendsWelcomeMessage() throws Exception {
-        return slackBuilderService.sendHelloMessageToBot();
+        return slackBuilderService.sendHelloMessageToBotWithoutButton();
+    }
+
+    @Tag(name = "Slack")
+    @Operation(summary = "Sends a welcome message to the bot with the ignore button!")
+    @PostMapping(produces = MediaType.TEXT_PLAIN_VALUE, path = "/welcome-with-button")
+    public ResponseEntity<Object> sendsWelcomeMessageWithButton() throws Exception {
+        return slackBuilderService.sendHelloMessageToBotWithButton();
     }
 }

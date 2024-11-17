@@ -14,8 +14,6 @@ public class GeneralSettings {
 
     @NotNull
     private Integration integration;
-//    @NotNull
-//    private Slack slack;
     @Data
     public static class Slack {
         private String botToken;
