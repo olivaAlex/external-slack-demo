@@ -5,7 +5,7 @@ application:
         bot-token: #youroauthtoken - Navigate to "Install app"
         app-token: #yourappsockettoken - Navigate to "Basic information" -> App-Level Tokens
         enabled: false
-      user-email: #yourtestingmail
+        user-email: #yourtestingmail
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver

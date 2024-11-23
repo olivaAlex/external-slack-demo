@@ -8,4 +8,6 @@ public interface SlackBuilderService {
     ResponseEntity<Object> sendHelloMessageToBotWithoutButton() throws Exception;
 
     ResponseEntity<Object> sendHelloMessageToBotWithButton() throws Exception;
+
+    ResponseEntity<Object> rateSlackBot();
 }

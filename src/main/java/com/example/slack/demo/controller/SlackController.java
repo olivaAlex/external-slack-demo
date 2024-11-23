@@ -31,4 +31,11 @@ public class SlackController {
     public ResponseEntity<Object> sendsWelcomeMessageWithButton() throws Exception {
         return slackBuilderService.sendHelloMessageToBotWithButton();
     }
+
+    @Tag(name = "Slack")
+    @Operation(summary = "Sends a request to give a rating to the slack bot!")
+    @PostMapping(produces = MediaType.TEXT_PLAIN_VALUE, path = "/rate-this-slack-bot")
+    public ResponseEntity<Object> rateThisPresentation() {
+        return slackBuilderService.rateSlackBot();
+    }
 }

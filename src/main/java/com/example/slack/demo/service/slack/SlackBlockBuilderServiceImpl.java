@@ -8,6 +8,7 @@ import com.slack.api.model.block.composition.BlockCompositions;
 import com.slack.api.model.block.element.BlockElements;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,8 @@ public class SlackBlockBuilderServiceImpl implements SlackBuilderService {
         List<SlackMessage> slackMessages = new ArrayList<>();
         List<LayoutBlock> blocks = new ArrayList<>();
         blocks.add(SectionBlock.builder()
-                           .text(BlockCompositions.markdownText("Hello everyone! \uD83D\uDC4B Now you can ignore this message!"))
+                           .text(BlockCompositions.markdownText(
+                                   "Hello everyone! \uD83D\uDC4B Now you can ignore this message!"))
                            .build());
         this.addIgnoreButton(blocks);
         slackMessages.add(SlackMessage.builder()
@@ -55,6 +57,40 @@ public class SlackBlockBuilderServiceImpl implements SlackBuilderService {
                                   .build());
         slackApp.sendMessage(slackMessages);
         return ResponseEntity.ok("The message was sent to the bot channel!");
+    }
+
+    @Override
+    public ResponseEntity<Object> rateSlackBot() {
+        List<SlackMessage> slackMessages = new ArrayList<>();
+        List<LayoutBlock> blocks = new ArrayList<>();
+
+        blocks.add(SectionBlock.builder()
+                           .text(BlockCompositions.markdownText("Would you like to rate our Slack bot?"))
+                           .build());
+
+        blocks.add(ActionsBlock.builder()
+                           .elements(List.of(
+                                   BlockElements.button(b -> b.text(BlockCompositions.plainText(pt -> pt.text("Yes")))
+                                           .actionId("rate-yes")
+                                           .style("primary")), // Green button
+                                   BlockElements.button(b -> b.text(BlockCompositions.plainText(pt -> pt.text("No")))
+                                           .actionId("rate-no")
+                                           .style("danger"))    // Red button
+                           ))
+                           .build());
+
+        slackMessages.add(SlackMessage.builder()
+                                  .blocks(blocks)
+                                  .userEmail(defaultUserEmail)
+                                  .build());
+
+        try {
+            slackApp.sendMessage(slackMessages);
+            return ResponseEntity.ok("The rating message was sent to the bot channel!");
+        } catch (Exception e) {
+            log.error("Failed to send the rating message", e);
+            return ResponseEntity.status(500).body("Failed to send the rating message");
+        }
     }
 
     private void addIgnoreButton(List<LayoutBlock> blocks) {

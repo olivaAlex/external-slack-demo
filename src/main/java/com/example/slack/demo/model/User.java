@@ -22,6 +22,7 @@ public class User {
 
     private String name;
     private String email;
+    private String username;
 
     @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
